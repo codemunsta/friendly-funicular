@@ -1,0 +1,16 @@
+[flake8]
+
+exclude =
+    .git,
+    __pycache__,
+    venv
+filename = *.py
+accept-encodings = utf-8
+inline-quotes = single
+max-complexity = 12
+max-linenumber = 500
+max-line-length = 150
+multiline-quotes = double
+per-file-ignores =
+    blackshakara/project/settings/templates/settings.dev.py:F821
+    blackshakara/project/settings/docker.py:F821
