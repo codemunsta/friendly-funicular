@@ -18,7 +18,15 @@ python-decouple = "^3.8"
 
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^7.1.0"
+pre-commit = "^3.7.1"
+colorlog = "^6.8.2"
+
+[tool.yapf]
+based_on_style = "google"
+align_closing_bracket_with_visual_indent = true
+coalesce_brackets = true
+column_limit = 150
+dedent_closing_brackets = true
 
 [build-system]
 requires = ["poetry-core"]

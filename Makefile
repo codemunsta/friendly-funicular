@@ -2,6 +2,19 @@
 install:
 	poetry install
 
+.PHONY: install_pre-commit
+install_pre-commit:
+	poetry run pre-commit uninstall
+	poetry run pre-commit install
+
+.PHONY: lint
+lint:
+	poetry run pre-commit run --all-files
+
+.PHONY: light-lint
+light-lint:
+	poetry run pre-commit run
+
 .PHONY: migrations
 migrations:
 	poetry run python -m blackshakara.manage makemigrations
@@ -19,4 +32,4 @@ superuser:
 	poetry run python -m blackshakara.manage createsuperuser
 
 .PHONY: update
-update: install migrate ;
+update: install migrate install_pre-commit;
