@@ -12,11 +12,21 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+from typing import List
+from decouple import AutoConfig, Csv
 
-DEBUG = False
+config = AutoConfig(search_path=BASE_DIR)  # type: ignore # noqa: F821
+
+DEBUG = config('DEBUG', default=True, cast=bool)
 SECRET_KEY = NotImplemented
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS: List[str] = config('ALLOWED_HOSTS', cast=Csv(), default="*")
+CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', cast=bool, default=True)
+CORS_ALLOW_CREDENTIALS = config('CORS_ALLOW_CREDENTIALS', cast=bool, default=True)
+CSRF_TRUSTED_ORIGINS: List[str] = []
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+INTERNAL_IPS = ['127.0.0.1']
 
 # Application definition
 
@@ -27,11 +37,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third party apps
+    'corsheaders',
+    'drf_yasg',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'celery',
+    'django_celery_results',
+    'django_celery_beat',
+    'debug_toolbar',
+
+    # User Apps
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -68,6 +92,19 @@ DATABASES = {
         'NAME': 'BlackShakara/db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': config('DB_BACKEND'),
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config("DB_PASSWORD"),
+#         'HOST': config("DB_HOST"),
+#         'PORT': config("DB_PORT"),
+#         'ATOMIC_REQUESTS': True,
+#         'CONN_MAX_AGE': 600,
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

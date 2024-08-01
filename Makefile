@@ -31,5 +31,10 @@ run-server:
 superuser:
 	poetry run python -m blackshakara.manage createsuperuser
 
+.PHONY: up-dependencies-only
+up-dependencies-only:
+	test -f .env || touch .env
+	docker-compose -f docker-compose.dev.yml up --build
+
 .PHONY: update
 update: install migrate install_pre-commit;
