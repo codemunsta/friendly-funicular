@@ -18,6 +18,7 @@ from decouple import AutoConfig, Csv
 config = AutoConfig(search_path=BASE_DIR)  # type: ignore # noqa: F821
 
 DEBUG = config('DEBUG', default=True, cast=bool)
+BASE_URL = config('BASE_URL')
 SECRET_KEY = NotImplemented
 
 ALLOWED_HOSTS: List[str] = config('ALLOWED_HOSTS', cast=Csv(), default="*")
@@ -138,9 +139,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'  # type: ignore # noqa: F821
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # type: ignore # noqa: F821
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# AUTH_USER_MODEL = 'users.User'
+
+DEFAULT_MAIL_SENDER = "BlackShakara <blackshakara@gmail.co>"
