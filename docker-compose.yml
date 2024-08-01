@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:alpine
+    container_name: black_shakara-db-1
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+    container_name: wallx-redis
+    restart: always
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '8000:8000'
+    depends_on:
+      - redis
+      - db
+    image: app:BlackShakara
+    container_name: BlackShakara_latest
+    environment:
+      BLACK_SHARK__DATABASES: '{"default":{"HOST":"db"}}'
+      BLACK_SHARK__LOCAL_SETTINGS_PATH: 'local/settings.prod.py'
+
+volumes:
+  redis-data:
+  postgresql-data:
+    driver: local

@@ -29,6 +29,7 @@ redis = "^5.0.7"
 requests = "^2.32.3"
 django-debug-toolbar = "^4.4.6"
 whitenoise = "^6.7.0"
+supervisor = "^4.2.5"
 
 
 [tool.poetry.group.dev.dependencies]
