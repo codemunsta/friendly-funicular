@@ -27,9 +27,9 @@ pillow = "^10.4.0"
 psycopg2-binary = "^2.9.9"
 redis = "^5.0.7"
 requests = "^2.32.3"
-django-debug-toolbar = "^4.4.6"
 whitenoise = "^6.7.0"
 supervisor = "^4.2.5"
+gunicorn = "^22.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
