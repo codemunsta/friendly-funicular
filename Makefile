@@ -37,4 +37,4 @@ up-dependencies-only:
 	docker-compose -f docker-compose.dev.yml up --build
 
 .PHONY: update
-update: install migrate install_pre-commit;
+update: install migrations migrate install_pre-commit;

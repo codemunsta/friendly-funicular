@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
 
     # User Apps
+    'blackshakara.general.apps.GeneralConfig',
 ]
 
 MIDDLEWARE = [

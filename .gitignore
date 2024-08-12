@@ -71,3 +71,6 @@ $py.class
 coverage.ml
 htmlcov/
 nosetest.xml
+
+# Migrations
+blackshakara/*/migrations
