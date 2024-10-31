@@ -30,6 +30,7 @@ requests = "^2.32.3"
 whitenoise = "^6.7.0"
 supervisor = "^4.2.5"
 gunicorn = "^22.0.0"
+cloudinary = "^1.41.0"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -41,8 +41,6 @@ class CustomAuthentication(authentication.BaseAuthentication):
             raise AuthenticationFailed('Unauthenticated')
 
         if user is not None:
-            if user.active_token != auth_token:
-                raise AuthenticationFailed('Unauthenticated')
             return user, None
         else:
             return None

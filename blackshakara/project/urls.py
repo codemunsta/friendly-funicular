@@ -1,11 +1,14 @@
+from blackshakara.general.custom_authentication import CustomAuthentication
+
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.urls import path
+from django.urls import path, include
+
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view as swagger_get_schema_view
+
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import AllowAny
-# from users.custom_authentication import CustomAuthentication
 
 schema_view = swagger_get_schema_view(
     openapi.Info(
@@ -20,7 +23,7 @@ schema_view = swagger_get_schema_view(
     permission_classes=[
         AllowAny,
     ],
-    authentication_classes=[TokenAuthentication]
+    authentication_classes=[TokenAuthentication, CustomAuthentication]
 )
 
 urlpatterns = [
@@ -28,6 +31,7 @@ urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('backend/admin/', admin.site.urls),
+    path('accounts/', include('blackshakara.accounts.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

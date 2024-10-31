@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
     # User Apps
     'blackshakara.general.apps.GeneralConfig',
+    'blackshakara.accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -149,6 +150,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  # type: ignore # noqa: F821
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 DEFAULT_MAIL_SENDER = "BlackShakara <blackshakara@gmail.co>"
+EMAIL_BACKEND = "sgbackend.SendGridBackend"
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_API_KEY = config('SENDGRID_API_KEY')
